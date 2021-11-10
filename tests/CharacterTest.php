@@ -71,5 +71,6 @@ class CharacterTest extends TestCase
         $character = new Character();
         $character->hit(200, $character);
         $this->assertEquals(1000,$character->getHealth());
+        
     }
 }
