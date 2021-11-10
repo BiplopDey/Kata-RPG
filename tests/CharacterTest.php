@@ -84,7 +84,7 @@ class CharacterTest extends TestCase
         $this->assertEquals(800,$character->getHealth());
        
     }
-     public function test_damage_is_reduced_by_50(){
+    public function test_damage_is_reduced_by_50(){
         //If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
         $attaker = new Character();
         $damaged = new Character();
@@ -92,5 +92,15 @@ class CharacterTest extends TestCase
         $attaker->hit(100, $damaged);
 
         $this->assertEquals(950, $damaged->getHealth());
+    }
+
+     public function test_damage_is_increased_by_50(){
+        //If the target is 5 or more levels below the attacker, Damage is increased by 50%
+        $attaker = new Character();
+        $damaged = new Character();
+        $attaker->setLevel(10);
+        $attaker->hit(100, $damaged);
+
+        $this->assertEquals(850, $damaged->getHealth());
      }
 }

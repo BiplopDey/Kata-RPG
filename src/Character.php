@@ -11,10 +11,13 @@ class Character
     public function hit(int $damage, Character $victim){
         if($this !== $victim){
             $diff =  $victim->getLevel()-$this->getLevel();
+            $p = 1;
             if($diff>=5)    
-            $victim->takeHealth($damage*0.5);
-            else
-            $victim->takeHealth($damage);
+            $p=0.5;
+            elseif($diff<=-5)
+            $p=1.5;
+            
+            $victim->takeHealth($damage*$p);
         }
         
     }
