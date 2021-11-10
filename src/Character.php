@@ -7,6 +7,7 @@ class Character
     private int $health = 1000;
     private int $level = 1;
     private bool $alive = true;
+    private int $maxAttack;
 
     public function hit(int $damage, Character $victim){
         if($this !== $victim){
@@ -20,6 +21,13 @@ class Character
             $victim->takeHealth($damage*$p);
         }
         
+    }
+
+    public function setMaxAttack(int $maxAttack){
+        $this->maxAttack = $maxAttack;
+    }
+    public function getMaxAttack(): int{
+        return $this->maxAttack;
     }
 
     private function checkAlive(){

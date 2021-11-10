@@ -103,4 +103,10 @@ class CharacterTest extends TestCase
 
         $this->assertEquals(850, $damaged->getHealth());
      }
+
+     public function test_set_maxAttack(){
+        $character = new Character();
+        $character->setMaxAttack(200);
+        $this->assertEquals(200,$character->getMaxAttack());
+     }
 }
