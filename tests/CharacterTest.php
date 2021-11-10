@@ -71,6 +71,17 @@ class CharacterTest extends TestCase
         $character = new Character();
         $character->hit(200, $character);
         $this->assertEquals(1000,$character->getHealth());
-        
+
+    }
+
+    public function test_a_character_can_only_heal_itself(){
+        $attaker = new Character();
+        $character = new Character();
+       
+        $attaker->hit(200, $character);
+        $character->heal(300, $character);
+
+        $this->assertEquals(800,$character->getHealth());
+       
     }
 }
