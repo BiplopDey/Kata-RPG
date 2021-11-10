@@ -9,8 +9,14 @@ class Character
     private bool $alive = true;
 
     public function hit(int $damage, Character $victim){
-        if($this !== $victim)
-        $victim->takeHealth($damage);
+        if($this !== $victim){
+            $diff =  $victim->getLevel()-$this->getLevel();
+            if($diff>=5)    
+            $victim->takeHealth($damage*0.5);
+            else
+            $victim->takeHealth($damage);
+        }
+        
     }
 
     private function checkAlive(){
@@ -47,6 +53,9 @@ class Character
     }
     public function getLevel(): int{
         return $this->level;
+    }
+    public function setLevel(int $level){
+        $this->level = $level;
     }
     public function isAlive(): bool{
         $this->checkAlive();
