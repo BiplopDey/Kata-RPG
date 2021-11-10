@@ -12,14 +12,15 @@ class Character
         $victim->takeHealth($damage);
     }
 
-    public function checkAlive(){
+    private function checkAlive(){
         $this->alive = $this->health > 0;
     }
-    public function takeHealth($damage){
+
+    private function takeHealth($damage){
         $this->health-=$damage;
     }
 
-    public function giveHealth($health){
+    private function giveHealth($health){
         $this->health-=$health;
     }
 
