@@ -9,6 +9,7 @@ class Character
     private bool $alive = true;
 
     public function hit(int $damage, Character $victim){
+        if($this !== $victim)
         $victim->takeHealth($damage);
     }
 
