@@ -34,4 +34,16 @@ class CharacterTest extends TestCase
 
         $this->assertEquals(900, $damaged->getHealth());
     }
+
+    public function test_dead_characters_cannot_be_healed(){
+        $attaker = new Character();
+        $damaged = new Character();
+        $healer = new Character();
+        
+        $attaker->hit(1100, $damaged);
+        $healer->heal(100, $damaged);
+
+        $this->assertFalse($damaged->isAlive());
+    }
+    
 }
