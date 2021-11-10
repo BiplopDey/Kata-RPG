@@ -9,11 +9,11 @@ class Character
     private bool $alive = true;
 
     public function hit(int $damage, Character $victim){
-        $victim<-setHealth()
+        $victim->takeHealth($damage);
     }
 
-    public function setHealth(){
-        
+    public function takeHealth($damage){
+        $this->health-=$damage;
     }
 
     public function getHealth(): int{
