@@ -21,12 +21,22 @@ class Character
     }
 
     private function giveHealth($health){
-        $this->health-=$health;
+        $this->health+=$health;
     }
-
+    private function setHealth($health){
+        $this->health=$health;
+    }
     public function heal($health, $healed){
-        if($healed->isAlive()){
-            $healed->giveHealth($health);
+        if($healed->isAlive() && $this->getHealth()>$health){ 
+            // healed is alive and the healer cannot give more heath than he has
+            if($healed->getHealth()+$health < 1000){
+                $this->takeHealth($health);
+                $healed->giveHealth($health);
+            } else {
+                $this->takeHealth(1000-$healed->getHealth());
+                $healed->setHealth(1000);
+            }
+
         }
     }
 
