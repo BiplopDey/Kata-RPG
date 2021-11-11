@@ -5,6 +5,8 @@ use App\Type;
 use App\Melee;
 use App\Ranged;
 use App\Point;
+use App\Factions;
+use App\EnumFaction;
 class Character
 {
     private int $health = 1000;
@@ -13,11 +15,14 @@ class Character
     private int $maxAttack;
     private Type $type;
     private Point $position;
+    private Factions $factions;
 
     public function __construct() {
         $this->position = new Point(0,0);
         $this->type = new Melee();
+        $this->factions = new Factions();
     }
+
     public function hit(int $damage, Character $victim){
         if($this !== $victim && $this->isNearRange($victim)){
             $difLevel =  $victim->getLevel()-$this->getLevel();
@@ -48,11 +53,21 @@ class Character
     {
         return Point::distance($this->position, $character->position) <= $this->type->getRange();
     }
+    
+    public function addFactions(int $i)
+    {
+        $this->factions->addFactions($i);
+    }
+
     public function setPosition(Point $p)
     {
         $this->position = $p;
     }
 
+    public function getFactions(): Factions
+    {   
+        return $this->factions;
+    }
     public function getPosition(): Point{
         return $this->position;
     }

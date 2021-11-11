@@ -4,11 +4,12 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use App\Character;
+use App\EnumFaction;
 use App\Type;
 use App\Melee;
 use App\Ranged;
 use App\Point;
-
+use App\EnumFactions;
 
 class CharacterTest extends TestCase
 {
@@ -139,5 +140,12 @@ class CharacterTest extends TestCase
 
         $ranged->hit(200,$melee);
         $this->assertNotEquals(1000,$melee->getHealth());
+     }
+
+     public function test_characters_may_belong_to_one_or_more_Factions()
+     {
+        $character = new Character();
+        $character->addFactions(EnumFaction::Faction2);
+        $this->assertEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
      }
 }
