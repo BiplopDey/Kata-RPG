@@ -147,5 +147,9 @@ class CharacterTest extends TestCase
         $character = new Character();
         $character->addFactions(EnumFaction::Faction2);
         $this->assertEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
+
+        $character->addFactions(EnumFaction::Faction3);
+        $this->assertEquals(EnumFaction::Faction3, $character->getFactions()->All()[1]);
+
      }
 }

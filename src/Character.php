@@ -80,11 +80,11 @@ class Character
         return $this->type;
     }
 
-    public function setRange(int $range){
+    public function setRange(int $range): void {
         $this->range = $range;
     }
 
-    public function setMaxAttack(int $maxAttack){
+    public function setMaxAttack(int $maxAttack): void {
         $this->maxAttack = $maxAttack;
     }
     public function getMaxAttack(): int{
