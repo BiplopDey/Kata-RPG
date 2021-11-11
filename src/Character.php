@@ -1,26 +1,41 @@
 <?php
 
 namespace App;
-
+use App\Type;
+use App\Melee;
+use App\Ranged;
 class Character
 {
     private int $health = 1000;
     private int $level = 1;
     private bool $alive = true;
     private int $maxAttack;
-
+    private Type $type;
+    
     public function hit(int $damage, Character $victim){
         if($this !== $victim){
-            $diff =  $victim->getLevel()-$this->getLevel();
+            $difLevel =  $victim->getLevel()-$this->getLevel();
             $p = 1;
-            if($diff>=5)    
+            if($difLevel>=5)    
             $p=0.5;
-            elseif($diff<=-5)
+            elseif($difLevel<=-5)
             $p=1.5;
             
             $victim->takeHealth($damage*$p);
         }
         
+    }
+    
+    public function setType(Type $type){
+        $this->type = $type;
+    }
+
+    public function getType(): Type {
+        return $this->type;
+    }
+
+    public function setRange(int $range){
+        $this->range = $range;
     }
 
     public function setMaxAttack(int $maxAttack){

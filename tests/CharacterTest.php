@@ -4,6 +4,10 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use App\Character;
+use App\Type;
+use App\Melee;
+use App\Ranged;
+
 
 
 class CharacterTest extends TestCase
@@ -108,5 +112,15 @@ class CharacterTest extends TestCase
         $character = new Character();
         $character->setMaxAttack(200);
         $this->assertEquals(200,$character->getMaxAttack());
+     }
+
+     public function test_Melee_and_Ranged(){
+        $melee = new Character();
+        $ranged = new Character();
+        $melee->setType( new Melee("Melee", 2));
+        $ranged->setType(new Ranged("Randed", 20) );
+        $this->assertEquals("Melee",$melee->getType()->getName());
+        $this->assertEquals("Melee",$melee->getType()->getName());
+
      }
 }
