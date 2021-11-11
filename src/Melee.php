@@ -4,8 +4,8 @@ namespace App;
 use App\Type;
 
 class Melee extends Type{
-    function __construct( string $name, int $range)
+    function __construct()
     {
-        parent::__construct($name, $range);
+        parent::__construct("Melee",2);
     }
 }

@@ -7,7 +7,7 @@ use App\Character;
 use App\Type;
 use App\Melee;
 use App\Ranged;
-
+use App\Point;
 
 
 class CharacterTest extends TestCase
@@ -117,10 +117,27 @@ class CharacterTest extends TestCase
      public function test_Melee_and_Ranged(){
         $melee = new Character();
         $ranged = new Character();
-        $melee->setType( new Melee("Melee", 2));
-        $ranged->setType(new Ranged("Randed", 20) );
+        $melee->setType( new Melee());
+        $ranged->setType(new Ranged());
         $this->assertEquals("Melee",$melee->getType()->getName());
         $this->assertEquals("Melee",$melee->getType()->getName());
+     }
 
+     public function test_nearRange()
+     {
+        $melee = new Character();
+        $ranged = new Character();
+
+        $melee->setType( new Melee());
+        $ranged->setType(new Ranged() );
+        
+        $melee->setPosition( new Point(0, 1));
+        $ranged->setPosition( new Point(0, 5));
+        
+        $melee->hit(200,$ranged);
+        $this->assertEquals(1000,$ranged->getHealth());
+
+        $ranged->hit(200,$melee);
+        $this->assertNotEquals(1000,$melee->getHealth());
      }
 }

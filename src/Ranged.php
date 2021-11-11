@@ -4,10 +4,8 @@ namespace App;
 use App\Type;
 
 class Ranged extends Type{
-    function __construct( string $name, int $range)
+    function __construct()
     {
-        parent::__construct($name, $range);
+        parent::__construct("Ranged",20);
     }
-
-    
 }
