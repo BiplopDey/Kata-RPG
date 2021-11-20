@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Faction;
-use App\Character;
+
 
 class Factions{
     
-    private  $list= array();
+    private  $list = array();
     public function addFaction(int $i): void
     {
         $this->list[$i]=$i;

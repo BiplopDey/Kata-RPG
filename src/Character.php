@@ -9,7 +9,7 @@ use App\Rules\Rules;
 
 class Character
 {
-    private int $health = 1000;
+    private float $health = 1000;
     private int $level = 1;
     private bool $alive = true;
     private int $maxAttack;
@@ -25,8 +25,8 @@ class Character
         $this->factions = new Factions();
     }
 
-    public function hit(int $damage, Character $victim){
-        if($this->rules->canHit($victim)){//if($this !== $victim && $this->isNearRange($victim)){
+    public function hit(float $damage, Character $victim){
+        if($this->rules->canHit($victim)){
             $difLevel =  $victim->getLevel()-$this->getLevel();
             $p = 1;
             if($difLevel>=5)    
@@ -38,9 +38,8 @@ class Character
         }
     }
 
-    public function heal($health, $healed){
-        if($healed->isAlive() && $this->getHealth()>$health && $this !== $healed && $this->isNearRange($healed)){ 
-            // healed must be alive and the healer cannot give more heath than he has
+    public function heal(float $health,Character $healed){
+        if($this->rules->canHeal($health,$healed)){
             if($healed->getHealth()+$health < 1000){
                 $this->takeHealth($health);
                 $healed->giveHealth($health);
@@ -67,9 +66,9 @@ class Character
     {
         $this->position = $p;
     }
-    public function getFactions(): Factions
+    public function getFactions()
     {   
-        return $this->factions;
+        return $this->factions->All();
     }
     public function getPosition(): Point{
         return $this->position;
@@ -98,7 +97,7 @@ class Character
     private function giveHealth($health){
         $this->health+=$health;
     }
-    private function setHealth($health){
+    public function setHealth($health){//make private after testing
         $this->health=$health;
     }
     public function getHealth(): int{

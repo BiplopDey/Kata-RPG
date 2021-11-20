@@ -50,7 +50,10 @@ class CharacterTest extends TestCase
         $attaker = new Character();
         $damaged = new Character();
         $healer = new Character();
-        
+
+        $damaged->addFaction(EnumFaction::Faction2);
+        $healer->addFaction(EnumFaction::Faction2);
+
         $attaker->hit(1100, $damaged);
         $healer->heal(100, $damaged);
 
@@ -58,11 +61,13 @@ class CharacterTest extends TestCase
     }
     
     public function test_healing_cannot_raise_health_above_1000(){
-        $attaker = new Character();
         $healed = new Character();
         $healer = new Character();
         
-        $attaker->hit(200, $healed);
+        $healed->addFaction(EnumFaction::Faction2);
+        $healer->addFaction(EnumFaction::Faction2);
+
+        $healed->setHealth(800);
         $healer->heal(300, $healed);
 
         $this->assertEquals(1000,$healed->getHealth());
@@ -76,7 +81,7 @@ class CharacterTest extends TestCase
 
     }
 
-    public function test_a_character_can_only_heal_itself(){
+    public function test_a_character_cannot_heal_itself(){
         $attaker = new Character();
         $character = new Character();
        
@@ -86,6 +91,7 @@ class CharacterTest extends TestCase
         $this->assertEquals(800,$character->getHealth());
        
     }
+    
     public function test_damage_is_reduced_by_50(){
         //If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
         $attaker = new Character();
@@ -145,7 +151,7 @@ class CharacterTest extends TestCase
         
         $character->addFaction(EnumFaction::Faction2);
         $character->addFaction(EnumFaction::Faction3);
-        $factions = $character->getFactions()->All();
+        $factions = $character->getFactions();
         
         $faction = EnumFaction::Faction2;
         $this->assertEquals($faction, $factions[$faction]);
@@ -162,9 +168,28 @@ class CharacterTest extends TestCase
         $character->addFaction(EnumFaction::Faction3);
         $character->leaveFaction(EnumFaction::Faction2);
         
-        $factions = $character->getFactions()->All();
+        $factions = $character->getFactions();
 
 
         $this->assertNotEquals(EnumFaction::Faction2, $factions[EnumFaction::Faction3]);
+     }
+
+     public function test_heal_ally()
+     {
+        $character = new Character();
+        $ally = new Character();
+        $notAlly = new Character();
+
+        $character->addFaction(EnumFaction::Faction2);
+        $ally->addFaction(EnumFaction::Faction2);
+        $notAlly->addFaction(EnumFaction::Faction3);
+        
+        $ally->setHealth(500);
+        $notAlly->setHealth(500);
+        $character->heal(200,$ally);
+        $character->heal(200,$notAlly);
+
+        $this->assertEquals(700, $ally->getHealth());
+        $this->assertEquals(500, $notAlly->getHealth());
      }
 }
