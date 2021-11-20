@@ -18,6 +18,7 @@ class Character extends Entity
         parent::__construct(1000,1, new Point(0,0));
         $this->factions = new Factions();
         $this->type = new Melee();
+        $this->range = $this->type->getRange();
         $this->rules = new Rules($this);
     }
 
@@ -46,7 +47,15 @@ class Character extends Entity
         }
     }
     
+    public function isNearRange(Character $character): bool{
+        return Point::twoPointsNear($this->position, $character->position, $this->type->getRange());
+    }
+   
+    public function getRange(int $range): float{
+        return $this->type->getRange();
+    }
     
+
     public function addFaction(int $i)
     {
         $this->factions->addFaction($i);
@@ -68,7 +77,6 @@ class Character extends Entity
         return $this->type;
     }
     
-
     public function setMaxAttack(int $maxAttack): void {
         $this->maxAttack = $maxAttack;
     }

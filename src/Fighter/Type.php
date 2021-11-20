@@ -3,7 +3,7 @@
 namespace App\Fighter;
 
 abstract class Type{
-    protected int $range;
+    protected float $range;
     protected string $name;
     
     function __construct(string $name, int $range)
@@ -16,7 +16,7 @@ abstract class Type{
     {
         return $this->name;
     }
-    public function getRange(): string
+    public function getRange(): float
     {
         return $this->range;
     }

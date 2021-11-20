@@ -9,31 +9,28 @@ use App\Rules\Rules;
 
 abstract class Entity
 {
-    private float $health;
-    private int $level;
-    private bool $alive = true;
-    private Point $position;
+    protected float $health;
+    protected int $level;
+    protected bool $alive = true;
+    protected Point $position;
+    protected float $range;
 
     public function __construct(float $health, int $level, Point $position) {
         $this->health = $health;
         $this->level = $level; 
         $this->position = $position;
-        
     }
 
-    public function isNearRange(Character $character): bool
-    {
-        return Point::twoPointsNear($this->position, $character->position, $this->type->getRange());
-    }
+    public abstract function isNearRange(Character $character): bool;
+    public abstract function getRange(int $range): float;
+    
+
     public function setPosition(Point $p)
     {
         $this->position = $p;
     }
     public function getPosition(): Point{
         return $this->position;
-    }
-    public function setRange(int $range): void {
-        $this->range = $range;
     }
     
     protected function checkAlive(){
