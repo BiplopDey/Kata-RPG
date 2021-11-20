@@ -10,8 +10,13 @@ class Point {
         $this-> y= $y;
     }
 
-    static function distance(Point $a, Point $b): float
+    public static function distance(Point $a, Point $b): float
     {
        return sqrt(($a->x-$b->y)**2+($a->y-$b->y)**2);
+    }
+
+    public static function twoPointsNear(Point $a, Point $b, int $range): bool
+    {
+        return self::distance($a, $b) <= $range;
     }
 }

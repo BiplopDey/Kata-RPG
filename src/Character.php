@@ -49,7 +49,7 @@ class Character
 
     public function isNearRange(Character $character): bool
     {
-        return Point::distance($this->position, $character->position) <= $this->type->getRange();
+        return Point::twoPointsNear($this->position, $character->position, $this->type->getRange());
     }
     
     public function addFaction(int $i)
