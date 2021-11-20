@@ -22,7 +22,7 @@ class Character extends Entity
         $this->rules = new Rules($this);
     }
 
-    public function hit(float $damage, Character $victim){
+    public function hit(float $damage, Entity $victim){
         if($this->rules->canHit($victim)){
             $difLevel =  $victim->getLevel()-$this->getLevel();
             $p = 1;
@@ -47,14 +47,14 @@ class Character extends Entity
         }
     }
     
-    public function isNearRange(Character $character): bool{
-        return Point::twoPointsNear($this->position, $character->position, $this->type->getRange());
+    public function isNearRange(Entity $character): bool{
+        return Point::twoPointsNear($this->position, $character->position, $this->getRange());
     }
    
-    public function getRange(int $range): float{
+    public function getRange(): float
+    {
         return $this->type->getRange();
     }
-    
 
     public function addFaction(int $i)
     {
@@ -82,6 +82,9 @@ class Character extends Entity
     }
     public function getMaxAttack(): float{
         return $this->maxAttack;
+    }
+    public function takeHealth($damage): void{
+        $this->health-=$damage;
     }
 }
 

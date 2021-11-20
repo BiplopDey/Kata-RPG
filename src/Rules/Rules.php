@@ -2,6 +2,9 @@
 
 namespace App\Rules;
 use App\Character;
+use App\Entity;
+
+use function PHPUnit\Framework\returnSelf;
 
 class Rules {
     private Character $character;
@@ -9,10 +12,10 @@ class Rules {
     {
         $this->character = $character;
     }
-    public function canHit(Character $victim): bool{
+    public function canHit(Entity $victim): bool{
         return $this->character !== $victim 
         && $this->character->isNearRange($victim)
-        && !$this->checkAlly($victim);
+        && $this->checkAttakable($victim);
     }
 
     public function canHeal(float $health, Character $healed)
@@ -23,6 +26,13 @@ class Rules {
         && $this->character !== $healed 
         && $this->character->isNearRange($healed)
         && $this->checkAlly($healed);
+    }
+
+    private function checkAttakable(Entity $victim): bool{
+        if($victim instanceof Character)
+        return !$this->checkAlly($victim);
+
+        return true;
     }
 
     private function checkAlly(Character $ch): bool{

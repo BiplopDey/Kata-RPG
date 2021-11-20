@@ -22,8 +22,10 @@ abstract class Entity
     }
 
     public abstract function isNearRange(Character $character): bool;
-    public abstract function getRange(int $range): float;
     
+    public function getRange(): float{
+        return $this->range;
+    }
 
     public function setPosition(Point $p)
     {
@@ -36,9 +38,8 @@ abstract class Entity
     protected function checkAlive(){
         $this->alive = $this->health > 0;
     }
-    protected function takeHealth($damage){
-        $this->health-=$damage;
-    }
+    public abstract function takeHealth($damage): void;
+
     protected function giveHealth($health){
         $this->health+=$health;
     }
