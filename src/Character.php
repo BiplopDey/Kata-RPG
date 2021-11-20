@@ -6,26 +6,23 @@ use App\Fighter\Melee;
 use App\Geometry\Point;
 use App\Faction\Factions;
 use App\Rules\Rules;
-
-class Character
+use App\Entity;
+class Character extends Entity
 {
-    private float $health = 1000;
-    private int $level = 1;
-    private bool $alive = true;
-    private int $maxAttack;
     private Type $type;
-    private Point $position;
-    private Factions $factions;
+    private float $maxAttack;
     private Rules $rules;
+    private Factions $factions;
 
     public function __construct() {
-        $this->rules = new Rules($this);
-        $this->position = new Point(0,0);
-        $this->type = new Melee();
+        parent::__construct(1000,1, new Point(0,0));
         $this->factions = new Factions();
+        $this->type = new Melee();
+        $this->range = $this->type->getRange();
+        $this->rules = new Rules($this);
     }
 
-    public function hit(float $damage, Character $victim){
+    public function hit(float $damage, Entity $victim){
         if($this->rules->canHit($victim)){
             $difLevel =  $victim->getLevel()-$this->getLevel();
             $p = 1;
@@ -49,11 +46,16 @@ class Character
             }
         }
     }
-
-    public function isNearRange(Character $character): bool
-    {
-        return Point::twoPointsNear($this->position, $character->position, $this->type->getRange());
+    
+    public function isNearRange(Entity $character): bool{
+        return Point::twoPointsNear($this->position, $character->position, $this->getRange());
     }
+   
+    public function getRange(): float
+    {
+        return $this->type->getRange();
+    }
+
     public function addFaction(int $i)
     {
         $this->factions->addFaction($i);
@@ -62,56 +64,27 @@ class Character
     {
         $this->factions->leaveFaction($i);
     }
-    public function setPosition(Point $p)
-    {
-        $this->position = $p;
-    }
+    
     public function getFactions()
     {   
         return $this->factions->All();
     }
-    public function getPosition(): Point{
-        return $this->position;
-    }
+
     public function setType(Type $type){
         $this->type = $type;
     }
     public function getType(): Type {
         return $this->type;
     }
-    public function setRange(int $range): void {
-        $this->range = $range;
-    }
+    
     public function setMaxAttack(int $maxAttack): void {
         $this->maxAttack = $maxAttack;
     }
-    public function getMaxAttack(): int{
+    public function getMaxAttack(): float{
         return $this->maxAttack;
     }
-    private function checkAlive(){
-        $this->alive = $this->health > 0;
-    }
-    private function takeHealth($damage){
+    public function takeHealth($damage): void{
         $this->health-=$damage;
-    }
-    private function giveHealth($health){
-        $this->health+=$health;
-    }
-    public function setHealth($health){//make private after testing
-        $this->health=$health;
-    }
-    public function getHealth(): int{
-        return $this->health;
-    }
-    public function getLevel(): int{
-        return $this->level;
-    }
-    public function setLevel(int $level){
-        $this->level = $level;
-    }
-    public function isAlive(): bool{
-        $this->checkAlive();
-        return $this->alive;
     }
 }
 

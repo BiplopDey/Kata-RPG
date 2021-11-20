@@ -8,6 +8,8 @@ use App\Faction\EnumFaction;
 use App\Fighter\Melee;
 use App\Fighter\Ranged;
 use App\Geometry\Point;
+use App\Things;
+
 class CharacterTest extends TestCase
 {
     public function test_Health_starting_at_1000(){
@@ -132,11 +134,11 @@ class CharacterTest extends TestCase
         $melee = new Character();
         $ranged = new Character();
 
-        $melee->setType( new Melee());
-        $ranged->setType(new Ranged() );
+        $melee->setType(new Melee());
+        $ranged->setType(new Ranged());
         
-        $melee->setPosition( new Point(0, 1));
-        $ranged->setPosition( new Point(0, 5));
+        $melee->setPosition(new Point(0, 1));
+        $ranged->setPosition(new Point(0, 5));
         
         $melee->hit(200,$ranged);
         $this->assertEquals(1000,$ranged->getHealth());
@@ -208,6 +210,16 @@ class CharacterTest extends TestCase
 
         $this->assertEquals(1000, $ally->getHealth());
         $this->assertEquals(800, $notAlly->getHealth());
+     }
+
+     public function test_things()
+     {
+        $character = new Character();
+        $tree = new Things();
+        $tree->setHealth(2000);
+
+        $character->hit(3000,$tree);
+        $this->assertEquals(false, $tree->isAlive());
      }
 
 }
