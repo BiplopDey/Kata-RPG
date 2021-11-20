@@ -192,4 +192,22 @@ class CharacterTest extends TestCase
         $this->assertEquals(700, $ally->getHealth());
         $this->assertEquals(500, $notAlly->getHealth());
      }
+
+     public function test_damage_ally()
+     {
+        $character = new Character();
+        $ally = new Character();
+        $notAlly = new Character();
+
+        $character->addFaction(EnumFaction::Faction2);
+        $ally->addFaction(EnumFaction::Faction2);
+        $notAlly->addFaction(EnumFaction::Faction3);
+        
+        $character->hit(200,$ally);
+        $character->hit(200,$notAlly);
+
+        $this->assertEquals(1000, $ally->getHealth());
+        $this->assertEquals(800, $notAlly->getHealth());
+     }
+
 }

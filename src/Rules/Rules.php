@@ -10,7 +10,8 @@ class Rules {
     }
     public function canHit(Character $victim): bool{
         return $this->character !== $victim 
-        && $this->character->isNearRange($victim);
+        && $this->character->isNearRange($victim)
+        && !$this->checkAlly($victim);
     }
 
     public function canHeal(float $health, Character $healed)
