@@ -2,8 +2,9 @@
 
 namespace App\Rules;
 use App\Character;
+
 class Rules {
-    private $character;
+    private Character $character;
     public function __construct(Character $character)
     {
         $this->character = $character;
@@ -18,6 +19,7 @@ class Rules {
     {
         // healed must be alive and the healer cannot give more heath than he has
         return $healed->isAlive() 
+        
         && $this->character != $healed
         && $this->character->getHealth() > $health 
         && $this->character !== $healed 
