@@ -19,8 +19,6 @@ class Rules {
     {
         // healed must be alive and the healer cannot give more heath than he has
         return $healed->isAlive() 
-        
-        && $this->character != $healed
         && $this->character->getHealth() > $health 
         && $this->character !== $healed 
         && $this->character->isNearRange($healed)
