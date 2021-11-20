@@ -9,7 +9,7 @@ class Point {
         $this-> x= $x;
         $this-> y= $y;
     }
-
+    
     public static function distance(Point $a, Point $b): float
     {
        return sqrt(($a->x-$b->y)**2+($a->y-$b->y)**2);
