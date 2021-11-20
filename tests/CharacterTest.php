@@ -145,11 +145,16 @@ class CharacterTest extends TestCase
      public function test_characters_may_belong_to_one_or_more_Factions()
      {
         $character = new Character();
+        
         $character->addFaction(EnumFaction::Faction2);
-        $this->assertEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
-
         $character->addFaction(EnumFaction::Faction3);
-        $this->assertEquals(EnumFaction::Faction3, $character->getFactions()->All()[1]);
+        $factions = $character->getFactions()->All();
+        
+        $faction = EnumFaction::Faction2;
+        $this->assertEquals($faction, $factions[$faction]);
+        
+        $faction = EnumFaction::Faction3;
+        $this->assertEquals($faction, $factions[$faction]);
      }
 
      public function test_leave_Factions()
@@ -158,9 +163,11 @@ class CharacterTest extends TestCase
 
         $character->addFaction(EnumFaction::Faction2);
         $character->addFaction(EnumFaction::Faction3);
-
         $character->leaveFaction(EnumFaction::Faction2);
         
-        $this->assertNotEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
+        $factions = $character->getFactions()->All();
+
+
+        $this->assertNotEquals(EnumFaction::Faction2, $factions[EnumFaction::Faction3]);
      }
 }
