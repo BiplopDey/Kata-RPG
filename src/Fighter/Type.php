@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Fighter;
 
 abstract class Type{
     protected int $range;

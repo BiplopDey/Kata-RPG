@@ -5,9 +5,9 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use App\Character;
 use App\EnumFaction;
-use App\Type;
-use App\Melee;
-use App\Ranged;
+use App\Fighter\Type;
+use App\Fighter\Melee;
+use App\Fighter\Ranged;
 use App\Point;
 use App\EnumFactions;
 

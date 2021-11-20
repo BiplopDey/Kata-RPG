@@ -1,8 +1,8 @@
 <?php
 
 namespace App;
-use App\Type;
-use App\Melee;
+use App\Fighter\Type;
+use App\Fighter\Melee;
 use App\Ranged;
 use App\Point;
 use App\Factions;

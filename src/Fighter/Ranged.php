@@ -1,7 +1,7 @@
 <?php
 
-namespace App;
-use App\Type;
+namespace App\Fighter;
+use App\Fighter\Type;
 
 class Ranged extends Type{
     function __construct()
