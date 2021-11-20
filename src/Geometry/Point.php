@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Geometry;
 
 class Point {
     public int $x;

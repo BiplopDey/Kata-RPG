@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Faction;
 
 final class EnumFaction{
     const Faction1 = 1;

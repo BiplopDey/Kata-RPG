@@ -4,13 +4,10 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use App\Character;
-use App\EnumFaction;
-use App\Fighter\Type;
+use App\Faction\EnumFaction;
 use App\Fighter\Melee;
 use App\Fighter\Ranged;
-use App\Point;
-use App\EnumFactions;
-
+use App\Geometry\Point;
 class CharacterTest extends TestCase
 {
     public function test_Health_starting_at_1000(){

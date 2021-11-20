@@ -3,10 +3,8 @@
 namespace App;
 use App\Fighter\Type;
 use App\Fighter\Melee;
-use App\Ranged;
-use App\Point;
-use App\Factions;
-use App\EnumFaction;
+use App\Geometry\Point;
+use App\Faction\Factions;
 class Character
 {
     private int $health = 1000;
