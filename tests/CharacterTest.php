@@ -145,10 +145,22 @@ class CharacterTest extends TestCase
      public function test_characters_may_belong_to_one_or_more_Factions()
      {
         $character = new Character();
-        $character->addFactions(EnumFaction::Faction2);
+        $character->addFaction(EnumFaction::Faction2);
         $this->assertEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
 
-        $character->addFactions(EnumFaction::Faction3);
+        $character->addFaction(EnumFaction::Faction3);
         $this->assertEquals(EnumFaction::Faction3, $character->getFactions()->All()[1]);
+     }
+
+     public function test_leave_Factions()
+     {
+        $character = new Character();
+
+        $character->addFaction(EnumFaction::Faction2);
+        $character->addFaction(EnumFaction::Faction3);
+
+        $character->leaveFaction(EnumFaction::Faction2);
+        
+        $this->assertNotEquals(EnumFaction::Faction2, $character->getFactions()->All()[0]);
      }
 }

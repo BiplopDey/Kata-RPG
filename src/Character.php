@@ -54,11 +54,14 @@ class Character
         return Point::distance($this->position, $character->position) <= $this->type->getRange();
     }
     
-    public function addFactions(int $i)
+    public function addFaction(int $i)
     {
-        $this->factions->addFactions($i);
+        $this->factions->addFaction($i);
     }
-
+    public function leaveFaction(int $i)
+    {
+        $this->factions->leaveFaction($i);
+    }
     public function setPosition(Point $p)
     {
         $this->position = $p;
