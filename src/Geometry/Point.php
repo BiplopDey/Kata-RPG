@@ -17,7 +17,7 @@ class Point {
        return sqrt(($a->x-$b->y)**2 + ($a->y-$b->y)**2);
     }
 
-    public static function twoPointsNear(Point $a, Point $b, int $range): bool
+    public static function areNearRange(Point $a, Point $b, int $range): bool
     {
         return self::distance($a, $b) <= $range;
     }

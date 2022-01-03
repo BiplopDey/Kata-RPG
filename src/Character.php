@@ -14,7 +14,8 @@ class Character extends Entity
     private Rules $rules;
     private Factions $factions;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct(1000, 1, new Point(0,0));
         $this->factions = new Factions();
         $this->type = new Melee();
@@ -28,6 +29,7 @@ class Character extends Entity
             return;
         
         $difLevel =  $victim->getLevel() - $this->getLevel();
+        
         $p = 1;
         if($difLevel>=5)    
             $p=0.5;
@@ -54,7 +56,7 @@ class Character extends Entity
     
     public function isNearRange(Entity $character): bool
     {
-        return Point::twoPointsNear($this->position, $character->position, $this->getRange());
+        return Point::areNearRange($this->position, $character->position, $this->getRange());
     }
    
     public function getRange(): float

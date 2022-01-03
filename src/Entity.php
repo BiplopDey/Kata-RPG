@@ -45,12 +45,12 @@ abstract class Entity
         $this->alive = $this->health > 0;
     }
     
-    protected function giveHealth($health): void
+    protected function giveHealth(float $health): void
     {
         $this->health+=$health;
     }
 
-    public function setHealth($health): void 
+    public function setHealth(float $health): void 
     {//make protected after testing
         $this->health=$health;
     }
