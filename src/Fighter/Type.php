@@ -16,6 +16,7 @@ abstract class Type{
     {
         return $this->name;
     }
+    
     public function getRange(): float
     {
         return $this->range;

@@ -97,7 +97,7 @@ class Character extends Entity
         return $this->maxAttack;
     }
 
-    public function takeHealth($damage): void
+    public function takeHealth(float $damage): void
     {
         $this->health-=$damage;
     }
