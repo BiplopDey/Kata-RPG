@@ -14,41 +14,49 @@ class Character extends Entity
     private Rules $rules;
     private Factions $factions;
 
-    public function __construct() {
-        parent::__construct(1000,1, new Point(0,0));
+    public function __construct() 
+    {
+        parent::__construct(1000, 1, new Point(0,0));
         $this->factions = new Factions();
         $this->type = new Melee();
         $this->range = $this->type->getRange();
         $this->rules = new Rules($this);
     }
 
-    public function hit(float $damage, Entity $victim){
-        if($this->rules->canHit($victim)){
-            $difLevel =  $victim->getLevel()-$this->getLevel();
-            $p = 1;
-            if($difLevel>=5)    
+    public function hit(float $damage, Entity $victim): void
+    {
+        if(!$this->rules->canHit($victim))
+            return;
+        
+        $difLevel =  $victim->getLevel() - $this->getLevel();
+        
+        $p = 1;
+        if($difLevel>=5)    
             $p=0.5;
-            elseif($difLevel<=-5)
+        if($difLevel<=-5)
             $p=1.5;
-            
-            $victim->takeHealth($damage*$p);
-        }
+           
+        $victim->takeHealth($damage*$p);
     }
 
-    public function heal(float $health,Character $healed){
-        if($this->rules->canHeal($health,$healed)){
-            if($healed->getHealth()+$health < 1000){
-                $this->takeHealth($health);
-                $healed->giveHealth($health);
-            } else {
-                $this->takeHealth(1000-$healed->getHealth());
-                $healed->setHealth(1000);
-            }
-        }
+    public function heal(float $health, Character $healed): void
+    {
+        if(!$this->rules->canHeal($health,$healed))
+            return;
+        
+        if($healed->getHealth() + $health < 1000){
+            $this->takeHealth($health);
+            $healed->giveHealth($health);
+            return;
+        } 
+
+        $this->takeHealth(1000-$healed->getHealth());
+        $healed->setHealth(1000);        
     }
     
-    public function isNearRange(Entity $character): bool{
-        return Point::twoPointsNear($this->position, $character->position, $this->getRange());
+    public function isNearRange(Entity $character): bool
+    {
+        return Point::areNearRange($this->position, $character->position, $this->getRange());
     }
    
     public function getRange(): float
@@ -56,34 +64,43 @@ class Character extends Entity
         return $this->type->getRange();
     }
 
-    public function addFaction(int $i)
+    public function addFaction(int $i): void
     {
         $this->factions->addFaction($i);
     }
-    public function leaveFaction(int $i)
+
+    public function leaveFaction(int $i): void
     {
         $this->factions->leaveFaction($i);
     }
     
-    public function getFactions()
+    public function getFactions(): array
     {   
         return $this->factions->All();
     }
 
-    public function setType(Type $type){
+    public function setType(Type $type): void
+    {
         $this->type = $type;
     }
-    public function getType(): Type {
+
+    public function getType(): Type
+    {
         return $this->type;
     }
     
-    public function setMaxAttack(int $maxAttack): void {
+    public function setMaxAttack(int $maxAttack): void 
+    {
         $this->maxAttack = $maxAttack;
     }
-    public function getMaxAttack(): float{
+
+    public function getMaxAttack(): float
+    {
         return $this->maxAttack;
     }
-    public function takeHealth($damage): void{
+
+    public function takeHealth(float $damage): void
+    {
         $this->health-=$damage;
     }
 }

@@ -15,47 +15,63 @@ abstract class Entity
     protected Point $position;
     protected float $range;
 
-    public function __construct(float $health, int $level, Point $position) {
+    public function __construct(float $health, int $level, Point $position) 
+    {
         $this->health = $health;
         $this->level = $level; 
         $this->position = $position;
     }
 
     public abstract function isNearRange(Character $character): bool;
-    
-    public function getRange(): float{
+    public abstract function takeHealth(float $damage): void;
+
+    public function getRange(): float
+    {
         return $this->range;
     }
 
-    public function setPosition(Point $p)
+    public function setPosition(Point $p): void
     {
         $this->position = $p;
     }
-    public function getPosition(): Point{
+
+    public function getPosition(): Point
+    {
         return $this->position;
     }
     
-    protected function checkAlive(){
+    protected function checkAlive(): void
+    {
         $this->alive = $this->health > 0;
     }
-    public abstract function takeHealth($damage): void;
-
-    protected function giveHealth($health){
+    
+    protected function giveHealth(float $health): void
+    {
         $this->health+=$health;
     }
-    public function setHealth($health){//make protected after testing
+
+    public function setHealth(float $health): void 
+    {//make protected after testing
         $this->health=$health;
     }
-    public function getHealth(): int{
+
+    public function getHealth(): int
+    {
         return $this->health;
     }
-    public function getLevel(): int{
+
+    public function getLevel(): int
+    {
         return $this->level;
     }
-    public function setLevel(int $level){
+
+    public function setLevel(int $level): void
+    {
         $this->level = $level;
     }
-    public function isAlive(): bool{
+
+    public function isAlive(): bool
+    {
         $this->checkAlive();
         return $this->alive;
     }

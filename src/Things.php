@@ -10,23 +10,27 @@ use App\Entity;
 class Things extends Entity
 {
     
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct(1000,1, new Point(0,0));
         $this->range = 2;
     }
     
-    public function isNearRange(Entity $character): bool{
-        return Point::twoPointsNear($this->position, $character->position, $this->range);
+    public function isNearRange(Entity $character): bool
+    {
+        return Point::areNearRange($this->position, $character->position, $this->range);
     }
    
     
-    public function takeHealth($damage): void{
+    public function takeHealth(float $damage): void
+    {
         $this->health-=$damage;
         if(!$this->isAlive())
-        $this->destroy();
+            $this->destroy();
     }
 
-    public function destroy(): void{
-        //destroy
+    public function destroy(): void
+    {
+        $this->alive = false;
     }
 }
