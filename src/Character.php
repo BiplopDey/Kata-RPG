@@ -28,15 +28,19 @@ class Character extends Entity
         if(!$this->rules->canHit($victim))
             return;
         
+        $victim->takeHealth($this->getDamage($damage, $victim));
+    }
+
+    private function getDamage(float $damage, Entity $victim): float{
         $difLevel =  $victim->getLevel() - $this->getLevel();
-        
         $p = 1;
+        
         if($difLevel>=5)    
             $p=0.5;
         if($difLevel<=-5)
             $p=1.5;
-           
-        $victim->takeHealth($damage*$p);
+        
+        return $damage*$p;
     }
 
     public function heal(float $health, Character $healed): void
