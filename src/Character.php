@@ -22,17 +22,20 @@ class Character extends Entity
         $this->rules = new Rules($this);
     }
 
-    public function hit(float $damage, Entity $victim){
-        if($this->rules->canHit($victim)){
-            $difLevel =  $victim->getLevel()-$this->getLevel();
-            $p = 1;
-            if($difLevel>=5)    
+    public function hit(float $damage, Entity $victim): void
+    {
+        if(!$this->rules->canHit($victim))
+            return;
+        
+        $difLevel =  $victim->getLevel() - $this->getLevel();
+        $p = 1;
+        if($difLevel>=5)    
             $p=0.5;
-            elseif($difLevel<=-5)
+        if($difLevel<=-5)
             $p=1.5;
-            
-            $victim->takeHealth($damage*$p);
-        }
+           
+        $victim->takeHealth($damage*$p);
+        
     }
 
     public function heal(float $health,Character $healed){
