@@ -5,7 +5,7 @@ namespace App\Faction;
 
 class Factions{
     
-    private  $list = array();
+    private array $list = array();
     public function addFaction(int $i): void
     {
         $this->list[$i]=$i;
@@ -15,7 +15,8 @@ class Factions{
         unset($this->list[$i]);
     }
 
-    public function All(){
+    public function All(): array
+    {
         return $this->list;
     }
 
